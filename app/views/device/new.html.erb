@@ -1,0 +1,6 @@
+<%= simple_form_for @device, meethod: :post, url: device_create_path do |f| %>
+    <%= f.input :user_id, collection: @users, required: true %>
+    <%= f.input :model_number, collection: [345, 346], required: true %>
+    <%= f.input :is_alive, required: true %>
+    <%= f.button :submit, class: 'btn btn-primary' %>
+<% end %>
