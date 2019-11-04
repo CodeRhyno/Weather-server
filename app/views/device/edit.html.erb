@@ -1,14 +1,25 @@
-<%= simple_form_for @device, meethod: :put, url: device_path do |f| %>
-    <%= f.input :user_id, collection: @users, required: true %>
-    <%= f.input :model_number, collection: [345, 346], required: true %>
-    <%= f.input :is_alive, required: true %>
-    <%= f.button :submit, class: 'btn btn-primary' %>
-<% end %>
-
-<% if !@device.token_is_valid %>
-    <%= link_to "Enable", enable_device_path(@device.id), method: :post %>
-<% else %>
-    <%= link_to "Disable", disable_device_path(@device.id), method: :post %>
-<% end %>
-
-<%= link_to "View Data history", device_path(@device) %>
+<br />
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+        <%= simple_form_for @device, meethod: :put, url: device_path do |f| %>
+            <%= f.input :user_id, collection: @users, required: true %>
+            <%= f.input :model_number, collection: [345, 346], required: true %>
+            <%= f.input :is_alive, required: true %>
+            <%= f.input :token_is_valid, required: true %>
+            <%= f.button :submit, class: 'btn btn-primary' %>
+        <% end %>
+        <hr />
+        <% if !@device.token_is_valid %>
+            <h4>Device is disabled</h4>
+            <%= link_to "Enable Device", enable_device_path(@device.id), method: :post, class: 'btn btn-outline-success' %>
+        <% else %>
+            <h4>Device is enabled</h4>
+            <%= link_to "Disable Device", disable_device_path(@device.id), method: :post, class: 'btn btn-outline-danger' %>
+        <% end %>
+    </div>
+    <div class="col-sm-9">
+      <%= render 'device/table', data: @data %>
+    </div>
+  </div>
+</div>

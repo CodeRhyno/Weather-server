@@ -1,150 +1,134 @@
-<!-- Temperature -->
-<canvas id="temp-chart"></canvas>
+<% if @device[0].token_is_valid %>
+    <!-- Temperature -->
+    <canvas id="temp-chart"></canvas>
 
-<!-- Humidity -->
-<canvas id="hu-chart"></canvas>
+    <!-- Humidity -->
+    <canvas id="hu-chart"></canvas>
 
-<!-- DewPoint -->
-<canvas id="pressure-chart"></canvas>
+    <!-- DewPoint -->
+    <canvas id="pressure-chart"></canvas>
 
-<div id="token" style="display: none;"><%= @device[0].auth_token %></div>
+    <div id="token" style="display: none;"><%= @device[0].auth_token %></div>
 
-<script>
-var ctxTemp = document.getElementById('temp-chart');
-var ctxPressure = document.getElementById('pressure-chart');
-var ctxHu = document.getElementById('hu-chart');
-var tempData = []
-var huData = []
-var presData = []
-var timeSet = []
-ctxTemp.style.height = 400;
-// ctxTemp.width = 400;
-ctxHu.style.height = 400;
-// ctxSmoke.width = 400;
-ctxPressure.style.height = 400;
-// ctxDew.width = 400;
+    <script>
+    var ctxTemp = document.getElementById('temp-chart');
+    var ctxPressure = document.getElementById('pressure-chart');
+    var ctxHu = document.getElementById('hu-chart');
+    var tempData = []
+    var huData = []
+    var presData = []
+    var timeSet = []
+    ctxTemp.style.height = 400;
+    // ctxTemp.width = 400;
+    ctxHu.style.height = 400;
+    // ctxSmoke.width = 400;
+    ctxPressure.style.height = 400;
+    // ctxDew.width = 400;
 
-async function getData() {
-    const response = await fetch('https://shlok-weather2.herokuapp.com/data/serve', {headers});
-    var data = await response.json();
-    console.log(data.data[0])
-    data = data.data
-    for(var i=0;i<data.length;i++) {
-        tempData.push(data[i].temp)
-        huData.push(data[i].humidity)
-        presData.push(data[i].pressure)
-        timeSet.push(data[i].created_at)
-    }
-    console.log(tempData)
-
-    let tempChart = document.getElementById('temp-chart').getContext('2d')
-            let massPopChart = new Chart(ctxTemp, {
-                type: 'line',
-                data: {
-                    labels: timeSet,
-                    datasets: [{
-                        label: 'Temperature',
-                        data: tempData,
-                        backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ]
-                    }]
-                },
-                
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
+    async function getData() {
+        const response = await fetch('http://localhost:3000/data/serve', {headers});
+        var data = await response.json();
+        console.log(data.data[0])
+        data = data.data
+        for(var i=0;i<data.length;i++) {
+            tempData.push(data[i].temp)
+            huData.push(data[i].humidity)
+            presData.push(data[i].pressure)
+            timeSet.push(data[i].created_at)
         }
-    }
-            })
+        console.log(tempData)
 
-    var huChart = new Chart(ctxHu, {
-    type: 'line',
-    data: {
-        labels: timeSet,
-        datasets: [{
-            label: 'Humidity',
-            data: huData,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
+        let tempChart = document.getElementById('temp-chart').getContext('2d')
+                let massPopChart = new Chart(ctxTemp, {
+                    type: 'line',
+                    data: {
+                        labels: timeSet,
+                        datasets: [{
+                            label: 'Temperature',
+                            data: tempData,
+                            backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ]
+                        }]
+                    },
+                    
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
         }
-    }
-});
+                })
 
-var dewChart = new Chart(ctxPressure, {
-    type: 'line',
-    data: {
-        labels: timeSet,
-        datasets: [{
-            label: 'Pressure',
-            data: presData,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
+        var huChart = new Chart(ctxHu, {
+        type: 'line',
+        data: {
+            labels: timeSet,
+            datasets: [{
+                label: 'Humidity',
+                data: huData,
+                backgroundColor: [
+                    'rgba(176, 224, 246, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1
             }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
         }
-    }
-});
-}
+    });
 
-const authToken = document.getElementById('token').innerHTML
-console.log(authToken)
-var headers = new Headers()
-headers.append('Authorization', authToken)
-getData()
-</script>
+    var dewChart = new Chart(ctxPressure, {
+        type: 'line',
+        data: {
+            labels: timeSet,
+            datasets: [{
+                label: 'Pressure',
+                data: presData,
+                backgroundColor: [
+                    'rgba(178, 246, 176, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    }
+
+    const authToken = document.getElementById('token').innerHTML
+    console.log(authToken)
+    var headers = new Headers()
+    headers.append('Authorization', authToken)
+    getData()
+    </script>
+<% else %>
+    <h2>Device is disbled, please enable it first to view data.</h2>
+<% end %>

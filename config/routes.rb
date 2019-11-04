@@ -14,5 +14,10 @@ Rails.application.routes.draw do
   post '/data/upload/', to: 'data#create'
 
   get '/data/serve/', to: 'data#serve'
+
+  get '/devices/show', to: 'dashboard#show', as: 'view_devices'
+
+  get '/devices/user_disable/:id', to: 'dashboard#disable_device', as: 'user_disable_device'
+  get '/devices/user_enable/:id', to: 'dashboard#enable_device', as: 'user_enable_device'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
