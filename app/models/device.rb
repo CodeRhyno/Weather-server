@@ -24,4 +24,10 @@ class Device < ApplicationRecord
     self.is_alive = false
     self.save
   end
+
+  def enable_device
+    self.token_is_valid = true
+    self.is_alive = true
+    self.save
+  end
 end

@@ -38,6 +38,11 @@ class DeviceController < ApplicationController
         @device.disable_device
     end
 
+    def enable
+        @device = Device.find_by(id: params[:id])
+        @device.enable_device
+    end
+
     def destroy
     end
 

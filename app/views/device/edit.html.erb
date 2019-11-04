@@ -6,3 +6,7 @@
 <% end %>
 
 <%= link_to "Disable", disable_device_path(@device.id), method: :post %>
+
+<% if !@devicec.auth_token %>
+    <%= link_to "Enable", enable_device_path(@device.id), method: :post %>
+<% end %>
