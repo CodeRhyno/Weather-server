@@ -1,24 +1,32 @@
 
 <!-- Temperature -->
-<canvas id="temp-chart" width="400" height="400"></canvas>
+<canvas id="temp-chart"></canvas>
 
 <!-- DewPoint -->
-<canvas id="dew-chart" width="400" height="400"></canvas>
+<canvas id="dew-chart"></canvas>
 
 <!-- Smoke -->
-<canvas id="smoke-chart" width="400" height="400"></canvas>
+<canvas id="smoke-chart"></canvas>
 
 <script>
 var ctxTemp = document.getElementById('temp-chart');
 var ctxDew = document.getElementById('dew-chart');
 var ctxSmoke = document.getElementById('smoke-chart');
+
+ctxTemp.style.height = 400;
+// ctxTemp.width = 400;
+ctxSmoke.style.height = 400;
+// ctxSmoke.width = 400;
+ctxDew.style.height = 400;
+// ctxDew.width = 400;
+
 var tempChart = new Chart(ctxTemp, {
     type: 'line',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['Blue', 'Blue','Blue','Blue','Blue','Blue','Blue',],
         datasets: [{
             label: 'Temeprature',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [12, 19, 3, 5, 2, 3, 100],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

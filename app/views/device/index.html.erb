@@ -1,0 +1,29 @@
+<%= link_to "Add a device", new_device_path %>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">User Email</th>
+      <th scope="col">Device Mode</th>
+      <th scope="col">Registration Number</th>
+      <th scope="col">Device Alive</th>
+      <th scope="col">Device Assigned At</th>
+      <th scope="col">Auth Token</th>
+      <th scope="col">Auth Token Valid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @devices.each do |d| %>
+        <tr>
+            <td><%= d.id %></td>
+            <td><%= d.user.email %></td>
+            <td><%= d.model_number %></td>
+            <td><%= link_to d.reg_number, edit_device_path(d) %></td>
+            <td><%= d.is_alive %></td>
+            <td><%= d.updated_at %></td>
+            <td><%= d.auth_token %></td>
+            <td><%= d.token_is_valid %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>

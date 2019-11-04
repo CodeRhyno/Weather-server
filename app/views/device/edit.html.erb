@@ -1,0 +1,8 @@
+<%= simple_form_for @device, meethod: :put, url: device_path do |f| %>
+    <%= f.input :user_id, collection: @users, required: true %>
+    <%= f.input :model_number, collection: [345, 346], required: true %>
+    <%= f.input :is_alive, required: true %>
+    <%= f.button :submit, class: 'btn btn-primary' %>
+<% end %>
+
+<%= link_to "Disable", disable_device_path(@device.id), method: :post %>
