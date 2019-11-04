@@ -43,6 +43,10 @@ class DeviceController < ApplicationController
         @device.enable_device
     end
 
+    def show
+        @data = Datum.where(device_id: params[:id])
+    end
+
     def destroy
     end
 

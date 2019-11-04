@@ -1,0 +1,9 @@
+Temp Humidity Pressure Created_at
+<br />
+<% @data.each do |d| %>
+    <%= d.temp %>
+    <%= d.humidity %>
+    <%= d.pressure %>
+    <%= d.created_at %>
+    <br />
+<% end %>

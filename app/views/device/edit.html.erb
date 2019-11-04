@@ -5,8 +5,10 @@
     <%= f.button :submit, class: 'btn btn-primary' %>
 <% end %>
 
-<%= link_to "Disable", disable_device_path(@device.id), method: :post %>
-
-<% if !@devicec.auth_token %>
+<% if !@device.token_is_valid %>
     <%= link_to "Enable", enable_device_path(@device.id), method: :post %>
+<% else %>
+    <%= link_to "Disable", disable_device_path(@device.id), method: :post %>
 <% end %>
+
+<%= link_to "View Data history", device_path(@device) %>

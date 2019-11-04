@@ -2,7 +2,7 @@ class DataController < ApplicationController
     before_action :authenticate_device
 
     def create
-        @data = Data.new(set_params)
+        @data = Datum.new(set_params)
         @data.save
     end
 
