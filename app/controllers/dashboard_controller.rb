@@ -5,5 +5,6 @@ class DashboardController < ApplicationController
         if current_user.is_admin
             redirect_to device_index_path
         end
+        @device = Device.where(user_id: current_user.id)
     end
 end

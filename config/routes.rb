@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   post '/device/disable/:id', to: 'device#disable', as: 'disable_device'
   post '/device/enable/:id', to: 'device#enable', as: 'enable_device'
 
-  post '/data/upload', to: 'data#create'
+  post '/data/upload/', to: 'data#create'
+
+  get '/data/serve/', to: 'data#serve'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

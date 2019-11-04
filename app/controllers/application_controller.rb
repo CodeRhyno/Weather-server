@@ -10,6 +10,11 @@ class ApplicationController < ActionController::Base
     end
 
     def authenticate_device
+        token = request.headers['Authorization']
+        @device = Device.find_by(auth_token: token)
+        if @device.blank?
+            render json: { message: 'Unauthorized' }
+        end
     end
 
 end
